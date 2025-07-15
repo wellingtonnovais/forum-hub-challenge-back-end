@@ -2,8 +2,10 @@ package forum.hub.community.topicos;
 
 import forum.hub.community.cursos.Curso;
 import forum.hub.community.respostas.Resposta;
+import forum.hub.community.topicos.atualizacao.StatusTopico;
 import forum.hub.community.usuarios.Usuario;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -43,5 +45,10 @@ public class Topico {
         this.titulo = dados.titulo();
         this.mensagem = dados.mensagem();
         this.curso = new Curso(dados.nomeCurso());
+        this.status = "ABERTO";
+    }
+
+    public Topico(@NotNull StatusTopico status) {
+        this.status = status.name();
     }
 }
