@@ -8,7 +8,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
-import javax.xml.crypto.Data;
+import java.time.LocalDateTime;
+
 
 @Table(name = "resposta")
 @Entity(name = "Resposta")
@@ -26,7 +27,7 @@ public class Resposta {
     private Topico topico;
 
     @CreationTimestamp
-    private Data dataCriacao;
+    private LocalDateTime dataCriacao;
 
     @ManyToOne
     private Usuario autor;
