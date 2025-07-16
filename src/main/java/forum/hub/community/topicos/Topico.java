@@ -30,7 +30,8 @@ public class Topico {
     @CreationTimestamp
     private LocalDateTime dataCriacao;
 
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private StatusTopico status;
 
     @ManyToOne
     private Usuario autor;
@@ -41,14 +42,20 @@ public class Topico {
     @OneToMany(mappedBy = "topico", cascade = CascadeType.ALL)
     private List<Resposta> respostas;
 
-    public Topico(DadosRegistroTopico dados) {
+    public Topico(DadosRegistroTopico dados, Curso curso, Usuario autor) {
         this.titulo = dados.titulo();
         this.mensagem = dados.mensagem();
-        this.curso = new Curso(dados.nomeCurso());
-        this.status = "ABERTO";
+        this.status = StatusTopico.ABERTO;
+        this.curso = curso;
+        this.autor = autor;
     }
 
     public Topico(@NotNull StatusTopico status) {
-        this.status = status.name();
+        this.status = status;
     }
+
+    public void atualizarStatus(StatusTopico status) {
+        this.status = status;
+    }
+
 }

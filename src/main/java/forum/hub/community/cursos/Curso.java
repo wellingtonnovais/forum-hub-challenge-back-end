@@ -16,14 +16,15 @@ public class Curso {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String nomeCurso;
+    private String curso;
 
     @Enumerated(EnumType.STRING)
     private CategoriaCurso categoria;
 
-    public Curso(CategoriaCurso categoriaCurso) {
-        this.categoria = categoriaCurso;
-        this.nomeCurso = categoriaCurso.getNomeExibicao();
+    public Curso(String nome, CategoriaCurso categoria) {
+        this.curso = nome;
+        this.categoria = categoria;
     }
+
 
 }
