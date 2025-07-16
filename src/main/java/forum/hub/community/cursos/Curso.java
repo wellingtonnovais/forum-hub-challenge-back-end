@@ -5,7 +5,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Table(name = "curso")
+@Table(name = "nomecurso")
 @Entity(name = "Curso")
 @Getter
 @NoArgsConstructor
@@ -16,13 +16,13 @@ public class Curso {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String curso;
+    private String nomeCurso;
 
     @Enumerated(EnumType.STRING)
     private CategoriaCurso categoria;
 
     public Curso(String nome, CategoriaCurso categoria) {
-        this.curso = nome;
+        this.nomeCurso = nome;
         this.categoria = categoria;
     }
 
