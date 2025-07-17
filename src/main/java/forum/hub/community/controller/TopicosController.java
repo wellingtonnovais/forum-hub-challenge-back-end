@@ -37,7 +37,7 @@ public class TopicosController {
     @Transactional
     public ResponseEntity<Void> registrarTopico(@RequestBody @Valid DadosRegistroTopico dados) {
         // Buscar curso pelo nome
-        Curso curso = cursoRepository.findByNomeCurso(dados.nomeCurso())
+        Curso curso = cursoRepository.findByCategoria(dados.nomeCurso())
                 .orElseThrow(() -> new EntityNotFoundException("Curso não encontrado"));
 
         // Buscar autor fixo ou com base no usuário logado (exemplo simples abaixo)

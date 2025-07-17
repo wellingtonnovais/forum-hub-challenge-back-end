@@ -5,7 +5,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Table(name = "nomecurso")
+@Table(name = "cursos")
 @Entity(name = "Curso")
 @Getter
 @NoArgsConstructor
@@ -25,6 +25,4 @@ public class Curso {
         this.nomeCurso = nome;
         this.categoria = categoria;
     }
-
-
 }
