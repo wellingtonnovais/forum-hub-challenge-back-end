@@ -27,6 +27,7 @@ public class AtualizacaoTopico {
     private Usuario editor;
 
     @ManyToOne
+    @JoinColumn(name = "topico_id")
     private Topico topico;
 
     public AtualizacaoTopico(DadosAtualizacaoTopico dados, Topico topico) {

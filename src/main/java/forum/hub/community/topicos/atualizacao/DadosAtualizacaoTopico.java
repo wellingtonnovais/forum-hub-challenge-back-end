@@ -13,4 +13,11 @@ public record DadosAtualizacaoTopico(
 
         @NotNull
         StatusTopico status) {
+        public DadosAtualizacaoTopico(AtualizacaoTopico atualizacao) {
+                this(
+                        atualizacao.getTitulo(),
+                        atualizacao.getMensagem(),
+                        atualizacao.getTopico().getStatus()
+                );
+        }
 }

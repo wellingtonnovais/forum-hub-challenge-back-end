@@ -8,6 +8,7 @@ import forum.hub.community.topicos.TopicoRepository;
 import forum.hub.community.topicos.atualizacao.AtualizacaoTopico;
 import forum.hub.community.topicos.atualizacao.AtualizacaoTopicoRepository;
 import forum.hub.community.topicos.atualizacao.DadosAtualizacaoTopico;
+import forum.hub.community.topicos.detalhamento.DetalhamentoTopico;
 import forum.hub.community.usuarios.Usuario;
 import forum.hub.community.usuarios.UsuarioRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -68,4 +69,12 @@ public class TopicosController {
         AtualizacaoTopico atualizacao = new AtualizacaoTopico(dadosAtualizacao, topico);
         atualizacaoRepository.save(atualizacao);
     }
+
+    @GetMapping("/listar/{id}")
+    public ResponseEntity<DetalhamentoTopico> listarTopico(@PathVariable Long id) {
+        return topicoRepository.findById(id)
+                .map(topico -> ResponseEntity.ok(new DetalhamentoTopico(topico)))
+                .orElse(ResponseEntity.notFound().build());
+    }
+
 }

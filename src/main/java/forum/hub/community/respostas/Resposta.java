@@ -11,7 +11,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import java.time.LocalDateTime;
 
 
-@Table(name = "resposta")
+@Table(name = "respostas")
 @Entity(name = "Resposta")
 @Getter
 @NoArgsConstructor
@@ -31,6 +31,4 @@ public class Resposta {
 
     @ManyToOne
     private Usuario autor;
-
-    private Boolean solucao;
 }

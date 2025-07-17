@@ -2,6 +2,7 @@ package forum.hub.community.topicos;
 
 import forum.hub.community.cursos.Curso;
 import forum.hub.community.respostas.Resposta;
+import forum.hub.community.topicos.atualizacao.AtualizacaoTopico;
 import forum.hub.community.topicos.atualizacao.StatusTopico;
 import forum.hub.community.usuarios.Usuario;
 import jakarta.persistence.*;
@@ -12,6 +13,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Table(name = "topicos")
@@ -39,8 +41,11 @@ public class Topico {
     @ManyToOne
     private Curso curso;
 
-    @OneToMany(mappedBy = "topico", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "topico", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Resposta> respostas;
+
+    @OneToMany(mappedBy = "topico", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<AtualizacaoTopico> atualizacoes = new ArrayList<>();
 
     public Topico(DadosRegistroTopico dados, Curso curso, Usuario autor) {
         this.titulo = dados.titulo();
