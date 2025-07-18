@@ -1,4 +1,4 @@
-package forum.hub.community.topicos.atualizacao;
+package forum.hub.community.topicos;
 
 public enum StatusTopico {
     ABERTO,

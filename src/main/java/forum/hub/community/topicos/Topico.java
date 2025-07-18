@@ -3,7 +3,6 @@ package forum.hub.community.topicos;
 import forum.hub.community.cursos.Curso;
 import forum.hub.community.respostas.Resposta;
 import forum.hub.community.topicos.atualizacao.AtualizacaoTopico;
-import forum.hub.community.topicos.atualizacao.StatusTopico;
 import forum.hub.community.usuarios.Usuario;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;

@@ -1,5 +1,6 @@
 package forum.hub.community.topicos.atualizacao;
 
+import forum.hub.community.topicos.StatusTopico;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
