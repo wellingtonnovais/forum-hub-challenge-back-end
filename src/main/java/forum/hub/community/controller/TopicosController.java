@@ -14,6 +14,9 @@ import forum.hub.community.usuarios.UsuarioRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -78,11 +81,24 @@ public class TopicosController {
         atualizacaoRepository.save(atualizacao);
     }
 
+    //Busca topico pelo id com suas respectivas atualizações e respostas, e devolve em json
     @GetMapping("/listar/{id}")
-    public ResponseEntity<DetalhamentoTopico> listarTopico(@PathVariable Long id) {
+    public ResponseEntity<DetalhamentoTopico> listarTopicoPorId(@PathVariable Long id) {
         return topicoRepository.findById(id)
                 .map(topico -> ResponseEntity.ok(new DetalhamentoTopico(topico)))
                 .orElse(ResponseEntity.notFound().build());
+    }
+
+    //Lista todos os metodos em paginas de 10, com suas respectivas respostas e atualizações
+    @GetMapping("/listar")
+    public ResponseEntity<Page<DetalhamentoTopico>> listarTodosOsTopicos(
+            @PageableDefault(size = 10) Pageable paginacao) {
+
+        Page<DetalhamentoTopico> page = topicoRepository
+                .findAll(paginacao)
+                .map(DetalhamentoTopico::new);
+
+        return ResponseEntity.ok(page);
     }
 
 }
