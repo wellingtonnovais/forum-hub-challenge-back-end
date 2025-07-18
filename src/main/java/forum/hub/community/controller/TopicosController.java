@@ -36,7 +36,15 @@ public class TopicosController {
 
     @PostMapping("/registrar")
     @Transactional
-    public ResponseEntity<Void> registrarTopico(@RequestBody @Valid DadosRegistroTopico dados) {
+    public ResponseEntity<String> registrarTopico(@RequestBody @Valid DadosRegistroTopico dados) {
+
+        //Verifica se já existe o topico no banco de dados
+        if (topicoRepository.existsByTituloAndMensagem(dados.titulo(), dados.mensagem())) {
+            return ResponseEntity
+                    .badRequest()
+                    .body("Já existe um tópico com esse título e mensagem.");
+        }
+
         // Buscar curso pelo nome
         Curso curso = cursoRepository.findByCategoria(dados.nomeCurso())
                 .orElseThrow(() -> new EntityNotFoundException("Curso não encontrado"));
