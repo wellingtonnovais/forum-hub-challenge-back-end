@@ -101,4 +101,15 @@ public class TopicosController {
         return ResponseEntity.ok(page);
     }
 
+    //Deleta um topico especifico de banco de dados, através do id
+    @DeleteMapping("/deletar/{id}")
+    public ResponseEntity<String> deletarTopico(@PathVariable Long id) {
+        //Verifica se o id passado na requisição, existe no banco
+        if(topicoRepository.existsById(id)) {
+            topicoRepository.deleteById(id);
+            return ResponseEntity.noContent().build();
+        }else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }

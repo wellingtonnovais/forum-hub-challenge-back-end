@@ -61,5 +61,4 @@ public class Topico {
     public void atualizarStatus(StatusTopico status) {
         this.status = status;
     }
-
 }
