@@ -6,6 +6,7 @@ import forum.hub.community.topicos.atualizacao.DadosAtualizacaoTopico;
 import java.util.List;
 
 public record DetalhamentoTopico(
+        String id,
         String titulo,
         String mensagem,
         String status,
@@ -16,6 +17,7 @@ public record DetalhamentoTopico(
 ) {
     public DetalhamentoTopico(Topico topico) {
         this(
+                topico.getId().toString(),
                 topico.getTitulo(),
                 topico.getMensagem(),
                 topico.getStatus().toString(),
