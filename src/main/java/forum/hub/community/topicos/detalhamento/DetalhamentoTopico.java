@@ -11,6 +11,7 @@ public record DetalhamentoTopico(
         String status,
         String curso,
         String autor,
+        String data,
         List<DadosAtualizacaoTopico> atualizacoes
 ) {
     public DetalhamentoTopico(Topico topico) {
@@ -20,6 +21,7 @@ public record DetalhamentoTopico(
                 topico.getStatus().toString(),
                 topico.getCurso().getNomeCurso(),
                 topico.getAutor().getNome(),
+                topico.getDataCriacao().toString(),
                 topico.getAtualizacoes().stream().map(DadosAtualizacaoTopico::new).toList()
         );
     }

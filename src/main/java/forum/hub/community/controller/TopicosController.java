@@ -89,7 +89,7 @@ public class TopicosController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    //Lista todos os metodos em paginas de 10, com suas respectivas respostas e atualizações
+    //Lista todos os métodos em páginas de 10, com suas respectivas respostas e atualizações
     @GetMapping("/listar")
     public ResponseEntity<Page<DetalhamentoTopico>> listarTodosOsTopicos(
             @PageableDefault(size = 10) Pageable paginacao) {

@@ -21,7 +21,8 @@ public class AtualizacaoTopico {
     private String titulo;
     private String mensagem;
 
-    private LocalDateTime data;
+    @Column(name = "data")
+    private LocalDateTime dataAtualizacao;
 
     @ManyToOne
     private Usuario editor;
@@ -33,9 +34,7 @@ public class AtualizacaoTopico {
     public AtualizacaoTopico(DadosAtualizacaoTopico dados, Topico topico) {
         this.titulo = dados.titulo();
         this.mensagem = dados.mensagem();
-        this.data = LocalDateTime.now();
+        this.dataAtualizacao = LocalDateTime.now();
         this.topico = topico;
     }
-
 }
-
