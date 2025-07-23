@@ -16,6 +16,7 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
@@ -92,7 +93,7 @@ public class TopicosController {
     //Lista todos os métodos em páginas de 10, com suas respectivas respostas e atualizações
     @GetMapping("/listar")
     public ResponseEntity<Page<DetalhamentoTopico>> listarTodosOsTopicos(
-            @PageableDefault(size = 10) Pageable paginacao) {
+            @PageableDefault(size = 10, sort = {"dataCriacao"}, direction = Sort.Direction.ASC) Pageable paginacao) {
 
         Page<DetalhamentoTopico> page = topicoRepository
                 .findAll(paginacao)
