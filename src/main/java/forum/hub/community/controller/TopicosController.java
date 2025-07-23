@@ -22,6 +22,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @RestController
 @RequestMapping("/topicos")
 public class TopicosController {
@@ -68,19 +70,30 @@ public class TopicosController {
 
     @PutMapping("/atualizar/{id}")
     @Transactional
-    public void atualizarTopico(@PathVariable Long id,
-                                @RequestBody @Valid DadosAtualizacaoTopico dadosAtualizacao) {
+    public ResponseEntity<String> atualizarTopico(@PathVariable Long id,
+                                                  @RequestBody @Valid DadosAtualizacaoTopico dadosAtualizacao) {
 
-        // 1. Busca o tópico existente
-        Topico topico = topicoRepository.getReferenceById(id);
+        Optional<Topico> presenteOuNao = topicoRepository.findById(id);
 
-        // 2. Atualiza o status no topico original
-        topico.atualizarStatus(dadosAtualizacao.status());
+        //Verifica se o tópico existe no repositório
+        if (presenteOuNao.isPresent()) {
+            Topico topico = presenteOuNao.get();
 
-        // 3. Cria uma atualização e salva no banco
-        AtualizacaoTopico atualizacao = new AtualizacaoTopico(dadosAtualizacao, topico);
-        atualizacaoRepository.save(atualizacao);
+            // Atualiza o status
+            topico.atualizarStatus(dadosAtualizacao.status());
+
+            // Cria atualização
+            AtualizacaoTopico atualizacao = new AtualizacaoTopico(dadosAtualizacao, topico);
+            atualizacaoRepository.save(atualizacao);
+
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity
+                    .badRequest()
+                    .body("Não existe nenhum tópico com esse id.");
+        }
     }
+
 
     //Busca topico pelo id com suas respectivas atualizações e respostas, e devolve em json
     @GetMapping("/listar/{id}")
