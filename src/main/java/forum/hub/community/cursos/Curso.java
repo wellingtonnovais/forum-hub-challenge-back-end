@@ -5,8 +5,8 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+@Entity
 @Table(name = "cursos")
-@Entity(name = "Curso")
 @Getter
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
@@ -16,13 +16,15 @@ public class Curso {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String nomeCurso;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "nome_curso")
+    private NomeCursos nomeCurso;
 
     @Enumerated(EnumType.STRING)
     private CategoriaCurso categoria;
 
-    public Curso(String nome, CategoriaCurso categoria) {
-        this.nomeCurso = nome;
-        this.categoria = categoria;
+    public Curso(NomeCursos nomeCurso) {
+        this.nomeCurso = nomeCurso;
+        this.categoria = nomeCurso.getCategoria(); // atribui a categoria do curso automaticamente
     }
 }

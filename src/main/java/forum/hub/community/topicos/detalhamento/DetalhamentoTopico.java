@@ -11,6 +11,7 @@ public record DetalhamentoTopico(
         String mensagem,
         String status,
         String curso,
+        String categoria,
         String autor,
         String data,
         List<DadosAtualizacaoTopico> atualizacoes
@@ -21,7 +22,8 @@ public record DetalhamentoTopico(
                 topico.getTitulo(),
                 topico.getMensagem(),
                 topico.getStatus().toString(),
-                topico.getCurso().getNomeCurso(),
+                topico.getCurso().getNomeCurso().getNomeExibicao(),
+                topico.getCurso().getCategoria().getNomeExibicao(),
                 topico.getAutor().getNome(),
                 topico.getDataCriacao().toString(),
                 topico.getAtualizacoes().stream().map(DadosAtualizacaoTopico::new).toList()

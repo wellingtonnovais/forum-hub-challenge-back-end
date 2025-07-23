@@ -49,7 +49,7 @@ public class TopicosController {
         }
 
         // Buscar curso pelo nome
-        Curso curso = cursoRepository.findByCategoria(dados.nomeCurso())
+        Curso curso = cursoRepository.findByNomeCurso(dados.nomeCurso())
                 .orElseThrow(() -> new EntityNotFoundException("Curso não encontrado"));
 
         // Buscar autor fixo ou com base no usuário logado (exemplo simples abaixo)
