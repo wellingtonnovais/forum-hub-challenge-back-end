@@ -3,6 +3,7 @@ package forum.hub.community.topicos.detalhamento;
 import forum.hub.community.topicos.Topico;
 import forum.hub.community.topicos.atualizacao.DadosAtualizacaoTopico;
 
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public record DetalhamentoTopico(
@@ -25,7 +26,7 @@ public record DetalhamentoTopico(
                 topico.getCurso().getNomeCurso().getNomeExibicao(),
                 topico.getCurso().getCategoria().getNomeExibicao(),
                 topico.getAutor().getNome(),
-                topico.getDataCriacao().toString(),
+                topico.getDataCriacao().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")),
                 topico.getAtualizacoes().stream().map(DadosAtualizacaoTopico::new).toList()
         );
     }
