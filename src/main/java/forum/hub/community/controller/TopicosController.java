@@ -2,6 +2,9 @@ package forum.hub.community.controller;
 
 import forum.hub.community.cursos.Curso;
 import forum.hub.community.cursos.CursoRepository;
+import forum.hub.community.respostas.DadosCadastroResposta;
+import forum.hub.community.respostas.Resposta;
+import forum.hub.community.respostas.RespostaRepository;
 import forum.hub.community.topicos.DadosRegistroTopico;
 import forum.hub.community.topicos.Topico;
 import forum.hub.community.topicos.TopicoRepository;
@@ -22,6 +25,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @RestController
@@ -39,6 +43,9 @@ public class TopicosController {
 
     @Autowired
     private AtualizacaoTopicoRepository atualizacaoRepository;
+
+    @Autowired
+    private RespostaRepository respostaRepository;
 
     @PostMapping("/registrar")
     @Transactional
@@ -125,5 +132,36 @@ public class TopicosController {
         }else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @PostMapping("/responder/{id}")
+    @Transactional
+    public ResponseEntity<String> responderTopico(@PathVariable Long id,
+                                                  @RequestBody @Valid DadosCadastroResposta dados) {
+
+        //Verifica se o tópico existe
+        Optional<Topico> topicoOptional = topicoRepository.findById(id);
+        if (topicoOptional.isEmpty()) {
+            return ResponseEntity.badRequest().body("Tópico não encontrado com o ID fornecido.");
+        }
+
+        //Verifica se o autor da resposta existe
+        Optional<Usuario> autorOptional = usuarioRepository.findById(dados.idAutor());
+        if (autorOptional.isEmpty()) {
+            return ResponseEntity.badRequest().body("Usuário (autor da resposta) não encontrado.");
+        }
+
+        //Cria e salva a resposta
+        Resposta resposta = new Resposta(
+                null,
+                dados.mensagem(),
+                LocalDateTime.now(),
+                topicoOptional.get(),
+                autorOptional.get()
+        );
+
+        respostaRepository.save(resposta);
+
+        return ResponseEntity.ok("Resposta registrada com sucesso.");
     }
 }
