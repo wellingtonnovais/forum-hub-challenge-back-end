@@ -101,7 +101,6 @@ public class TopicosController {
         }
     }
 
-
     //Busca topico pelo id com suas respectivas atualizações e respostas, e devolve em json
     @GetMapping("/listar/{id}")
     public ResponseEntity<DetalhamentoTopico> listarTopicoPorId(@PathVariable Long id) {
@@ -125,11 +124,12 @@ public class TopicosController {
     //Deleta um topico especifico de banco de dados, através do id
     @DeleteMapping("/deletar/{id}")
     public ResponseEntity<String> deletarTopico(@PathVariable Long id) {
-        //Verifica se o id passado na requisição, existe no banco
-        if(topicoRepository.existsById(id)) {
-            topicoRepository.deleteById(id);
+        Optional<Topico> topicoOptional = topicoRepository.findById(id);
+
+        if (topicoOptional.isPresent()) {
+            topicoRepository.delete(topicoOptional.get());
             return ResponseEntity.noContent().build();
-        }else {
+        } else {
             return ResponseEntity.notFound().build();
         }
     }
