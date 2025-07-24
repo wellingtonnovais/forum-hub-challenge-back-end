@@ -12,8 +12,8 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Table(name = "topicos")
 @Entity(name = "Topico")
@@ -41,10 +41,10 @@ public class Topico {
     private Curso curso;
 
     @OneToMany(mappedBy = "topico", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Resposta> respostas;
+    private Set<Resposta> respostas;
 
     @OneToMany(mappedBy = "topico", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<AtualizacaoTopico> atualizacoes = new ArrayList<>();
+    private Set<AtualizacaoTopico> atualizacoes = new HashSet<>();
 
     public Topico(DadosRegistroTopico dados, Curso curso, Usuario autor) {
         this.titulo = dados.titulo();
