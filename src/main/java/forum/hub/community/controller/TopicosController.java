@@ -101,12 +101,21 @@ public class TopicosController {
         }
     }
 
-    //Busca topico pelo id com suas respectivas atualizações e respostas, e devolve em json
     @GetMapping("/listar/{id}")
     public ResponseEntity<DetalhamentoTopico> listarTopicoPorId(@PathVariable Long id) {
-        return topicoRepository.findById(id)
-                .map(topico -> ResponseEntity.ok(new DetalhamentoTopico(topico)))
-                .orElse(ResponseEntity.notFound().build());
+        Optional<Topico> topicoOptional = topicoRepository.findById(id);
+
+        if (topicoOptional.isPresent()) {
+            Topico topico = topicoOptional.get();
+
+            topico.getRespostas().size();
+            topico.getAtualizacoes().size();
+
+            DetalhamentoTopico detalhamento = new DetalhamentoTopico(topico);
+            return ResponseEntity.ok(detalhamento);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     //Lista todos os métodos em páginas de 10, com suas respectivas respostas e atualizações
