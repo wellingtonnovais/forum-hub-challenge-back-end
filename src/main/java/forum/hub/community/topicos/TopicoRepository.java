@@ -14,4 +14,3 @@ public interface TopicoRepository extends JpaRepository<Topico, Long> {
     @EntityGraph(attributePaths = {"atualizacoes", "respostas"})
     Page<Topico> findAll(Pageable pageable);
 }
-

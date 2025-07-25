@@ -31,10 +31,18 @@ public class AtualizacaoTopico {
     @JoinColumn(name = "topico_id")
     private Topico topico;
 
+    public AtualizacaoTopico(Topico topico, LocalDateTime now) {
+        this.titulo = topico.getTitulo();
+        this.mensagem = topico.getMensagem();
+        this.topico = topico;
+        this.dataAtualizacao = now;
+    }
+
     public AtualizacaoTopico(DadosAtualizacaoTopico dados, Topico topico) {
         this.titulo = dados.titulo();
         this.mensagem = dados.mensagem();
-        this.dataAtualizacao = LocalDateTime.now();
+        this.editor = dados.editor();
         this.topico = topico;
+        this.dataAtualizacao = LocalDateTime.now();
     }
 }

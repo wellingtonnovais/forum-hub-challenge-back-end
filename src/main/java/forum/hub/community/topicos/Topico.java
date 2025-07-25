@@ -5,6 +5,7 @@ import forum.hub.community.respostas.Resposta;
 import forum.hub.community.topicos.atualizacao.AtualizacaoTopico;
 import forum.hub.community.usuarios.Usuario;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -60,5 +61,13 @@ public class Topico {
 
     public void atualizarStatus(StatusTopico status) {
         this.status = status;
+    }
+
+    public void setTitulo(@NotBlank String titulo) {
+        this.titulo = titulo;
+    }
+
+    public void setMensagem(@NotBlank String mensagem) {
+        this.mensagem = mensagem;
     }
 }
