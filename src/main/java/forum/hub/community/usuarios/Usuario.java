@@ -2,6 +2,7 @@ package forum.hub.community.usuarios;
 
 import forum.hub.community.perfis.Perfil;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
