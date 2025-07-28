@@ -114,14 +114,13 @@ public class TopicoService {
         return ResponseEntity.ok("Resposta registrada com sucesso.");
     }
 
-    public ResponseEntity<String> atualizarTopico(Long id, DadosAtualizacaoTopico dadosAtualizacao) {
+    public ResponseEntity<String> atualizarTopico(Long id, DadosAtualizacaoTopico dadosAtualizacao, Usuario usuarioLogado) {
         Optional<Topico> presenteOuNao = topicoRepository.findById(id);
         if (presenteOuNao.isEmpty()) {
             return ResponseEntity.badRequest().body("Não existe nenhum tópico com esse id.");
         }
 
         Topico topico = presenteOuNao.get();
-        Usuario usuarioLogado = getUsuarioLogado();
 
         if (!topico.getAutor().equals(usuarioLogado) && !usuarioLogado.isAdmin()) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Você não tem permissão para atualizar este tópico.");
@@ -129,10 +128,10 @@ public class TopicoService {
 
         topico.atualizarStatus(dadosAtualizacao.status());
 
-        AtualizacaoTopico atualizacao = new AtualizacaoTopico(dadosAtualizacao, topico);
+        AtualizacaoTopico atualizacao = new AtualizacaoTopico(dadosAtualizacao, topico, usuarioLogado);
         atualizacaoRepository.save(atualizacao);
 
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok("Tópico atualizado com sucesso.");
     }
 
     public ResponseEntity<String> deletarTopico(Long id) {
@@ -157,7 +156,4 @@ public class TopicoService {
         return usuarioRepository.findByEmail(email)
                 .orElseThrow(() -> new EntityNotFoundException("Usuário logado não encontrado"));
     }
-
-
 }
-

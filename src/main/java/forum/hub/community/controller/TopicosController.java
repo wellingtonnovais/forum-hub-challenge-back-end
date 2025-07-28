@@ -5,6 +5,7 @@ import forum.hub.community.service.TopicoService;
 import forum.hub.community.topicos.DadosRegistroTopico;
 import forum.hub.community.topicos.atualizacao.DadosAtualizacaoTopico;
 import forum.hub.community.topicos.detalhamento.DetalhamentoTopico;
+import forum.hub.community.usuarios.Usuario;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -12,6 +13,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -45,8 +48,9 @@ public class TopicosController {
 
     @PutMapping("/atualizar/{id}")
     public ResponseEntity<String> atualizarTopico(@PathVariable Long id,
-                                                  @RequestBody @Valid DadosAtualizacaoTopico dadosAtualizacao) {
-        return topicoService.atualizarTopico(id, dadosAtualizacao);
+                                                  @RequestBody @Valid DadosAtualizacaoTopico dadosAtualizacao,
+                                                  @AuthenticationPrincipal Usuario usuarioLogado) {
+        return topicoService.atualizarTopico(id, dadosAtualizacao, usuarioLogado);
     }
 
     @DeleteMapping("/deletar/{id}")

@@ -1,7 +1,6 @@
 package forum.hub.community.topicos.atualizacao;
 
 import forum.hub.community.topicos.StatusTopico;
-import forum.hub.community.usuarios.Usuario;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
@@ -18,18 +17,14 @@ public record DadosAtualizacaoTopico(
         @NotNull
         StatusTopico status,
 
-        String data,
-
-        @NotNull
-        Usuario editor
+        String data
 ) {
         public DadosAtualizacaoTopico(AtualizacaoTopico atualizacao) {
                 this(
                         atualizacao.getTitulo(),
                         atualizacao.getMensagem(),
                         atualizacao.getTopico().getStatus(),
-                        atualizacao.getDataAtualizacao().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")),
-                        atualizacao.getEditor()
+                        atualizacao.getDataAtualizacao().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"))
                 );
         }
 }

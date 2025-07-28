@@ -38,10 +38,10 @@ public class AtualizacaoTopico {
         this.dataAtualizacao = now;
     }
 
-    public AtualizacaoTopico(DadosAtualizacaoTopico dados, Topico topico) {
+    public AtualizacaoTopico(DadosAtualizacaoTopico dados, Topico topico, Usuario editor) {
         this.titulo = dados.titulo();
         this.mensagem = dados.mensagem();
-        this.editor = dados.editor();
+        this.editor = editor;
         this.topico = topico;
         this.dataAtualizacao = LocalDateTime.now();
     }
