@@ -1,9 +1,11 @@
 package forum.hub.community.topicos.detalhamento;
 
+import forum.hub.community.respostas.detalhamento.DadosDetalhamentoRespostas;
 import forum.hub.community.topicos.Topico;
 import forum.hub.community.topicos.atualizacao.DadosAtualizacaoTopico;
 
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -16,7 +18,8 @@ public record DetalhamentoTopico(
         String categoria,
         String autor,
         String data,
-        Set<DadosAtualizacaoTopico> atualizacoes
+        Set<DadosAtualizacaoTopico> atualizacoes,
+        List<DadosDetalhamentoRespostas> respostas
 ) {
     public DetalhamentoTopico(Topico topico) {
         this(
@@ -28,7 +31,8 @@ public record DetalhamentoTopico(
                 topico.getCurso().getCategoria().getNomeExibicao(),
                 topico.getAutor().getNome(),
                 topico.getDataCriacao().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")),
-                topico.getAtualizacoes().stream().map(DadosAtualizacaoTopico::new).collect(Collectors.toSet())
+                topico.getAtualizacoes().stream().map(DadosAtualizacaoTopico::new).collect(Collectors.toSet()),
+                topico.getRespostas().stream().map(DadosDetalhamentoRespostas::new).toList()
         );
     }
 }
