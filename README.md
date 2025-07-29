@@ -72,10 +72,13 @@ Perfis disponíveis:
 
 ---
 
-## 📂 Estrutura do banco de dados
-**usuarios**
-| id  | nome           | email             | senha (BCrypt) |
-|-----|--------------- |-----------------  |---------------|
+## 📂 Estrutura do banco de dados com exemplos
+### **👤 usuarios**
+| id  | nome            | email               | senha (BCrypt)                                         |
+|-----|-----------------|---------------------|--------------------------------------------------------|
+| 1   | João da Silva   | joao@email.com      | $2a$10$Y50UaMFOxteibQEYLrwuHeehHYfcoafCopUazP12.rqB41bsolF5. |
+| 2   | Pedro Henrique  | pedroh@hotmail.com  | $2a$12$kNU4xnzdv7VH1oC.Tmes5eQBMOI0beo4iHWvThn2Sd1wARg0nNHKC |
+
 
 **perfis**
 | id  | nome          |
@@ -83,14 +86,28 @@ Perfis disponíveis:
 | 1   | ROLE_USER     |
 | 2   | ROLE_ADMIN    |
 
-**topicos**
-| id  | titulo        | mensagem         | status       | autor_id | curso_id |
+### **📌 topicos**
+| id  | titulo                  | mensagem                                                               | status       | autor_id | curso_id |
+|-----|-------------------------|-------------------------------------------------------------------------|--------------|----------|----------|
+| 1   | Erro ao compilar projeto| Estou recebendo um erro de compilação ao tentar rodar minha aplicação. | ABERTO       | 2        | 1        |
+| 2   | Dúvida sobre API REST   | Não entendi como implementar corretamente os métodos no controller.    | SOLUCIONADO  | 3        | 2        |
 
-**respostas**
-| id  | mensagem      | data_resposta    | autor_id    | topico_id |
+---
 
-**atualizacoes**
-| id  | titulo        | mensagem         | status      | data      | editor_id | topico_id |
+### **💬 respostas**
+| id  | mensagem                                                                 | data_resposta        | autor_id | topico_id |
+|-----|--------------------------------------------------------------------------|----------------------|----------|-----------|
+| 1   | Verifique se você adicionou todas as dependências no seu `pom.xml`.      | 2025-07-29 15:42:00  | 4        | 1         |
+| 2   | Para resolver isso, use o método `@GetMapping` no seu controller.        | 2025-07-29 16:10:00  | 2        | 2         |
+
+---
+
+### **🔄 atualizacoes**
+| id  | titulo                  | mensagem                                                                     | status       | data                 | editor_id | topico_id |
+|-----|-------------------------|-----------------------------------------------------------------------------|--------------|----------------------|-----------|-----------|
+| 1   | Corrigi as dependências | Adicionei a dependência que faltava no `pom.xml`, agora está funcionando.   | SOLUCIONADO  | 2025-07-29 17:00:00 | 2         | 1         |
+| 2   | Ajustei os métodos      | Atualizei o controller com os endpoints corretos.                           | SOLUCIONADO  | 2025-07-29 17:30:00 | 3         | 2         |
+
 
 ---
 
