@@ -2,7 +2,6 @@ package forum.hub.community.usuarios;
 
 import forum.hub.community.perfis.Perfil;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -62,4 +61,3 @@ public class Usuario implements UserDetails {
     @Override public boolean isCredentialsNonExpired() { return true; }
     @Override public boolean isEnabled() { return true; }
 }
-
