@@ -14,7 +14,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -42,8 +41,9 @@ public class TopicosController {
 
     @PostMapping("/responder/{id}")
     public ResponseEntity<String> responderTopico(@PathVariable Long id,
-                                                  @RequestBody @Valid DadosCadastroResposta dados) {
-        return topicoService.responderTopico(id, dados);
+                                                  @RequestBody @Valid DadosCadastroResposta dados,
+                                                  @AuthenticationPrincipal Usuario usuarioLogado) {
+        return topicoService.responderTopico(id, dados, usuarioLogado);
     }
 
     @PutMapping("/atualizar/{id}")

@@ -85,20 +85,12 @@ public class TopicoService {
         return ResponseEntity.ok(page);
     }
 
-    public ResponseEntity<String> responderTopico(Long id, DadosCadastroResposta dados) {
-        Optional<Topico> topicoOptional = topicoRepository.findById(id);
-        if (topicoOptional.isEmpty()) {
-            return ResponseEntity.badRequest().body("Tópico não encontrado.");
-        }
-
-        Topico topico = topicoOptional.get();
-
-        String emailUsuario = SecurityContextHolder.getContext().getAuthentication().getName();
-        Usuario usuarioLogado = usuarioRepository.findByEmail(emailUsuario)
-                .orElseThrow(() -> new EntityNotFoundException("Usuário logado não encontrado"));
+    public ResponseEntity<String> responderTopico(Long id, DadosCadastroResposta dados, Usuario usuarioLogado) {
+        Topico topico = topicoRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Tópico não encontrado."));
 
         if (topico.getAutor().equals(usuarioLogado)) {
-            return ResponseEntity.badRequest().body("Você não pode responder ao seu próprio tópico.");
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Você não pode responder ao seu próprio tópico.");
         }
 
         Resposta resposta = new Resposta(
@@ -113,6 +105,7 @@ public class TopicoService {
 
         return ResponseEntity.ok("Resposta registrada com sucesso.");
     }
+
 
     public ResponseEntity<String> atualizarTopico(Long id, DadosAtualizacaoTopico dadosAtualizacao, Usuario usuarioLogado) {
         Optional<Topico> presenteOuNao = topicoRepository.findById(id);
